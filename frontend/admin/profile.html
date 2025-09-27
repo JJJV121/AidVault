@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AidVault - Admin Profile</title>
+<style>
+:root{
+    --bg-main: #1B0D3A;
+    --card-bg: rgba(255,255,255,0.05);
+    --primary: #8A00C4;
+    --accent: #9F6BFF;
+    --text-light: #FFFFFF;
+    --text-medium: #CFCFCF;
+}
+body{background: var(--bg-main); color: var(--text-light); font-family:'Roboto', sans-serif; scroll-behavior:smooth;}
+a{text-decoration:none; color:inherit;}
+header{width:100%; padding:1rem 3rem; display:flex; justify-content: space-between; align-items:center; background: rgba(27,13,58,0.95); position: fixed; top:0; z-index:1000;}
+header h1{color: var(--text-light);}
+nav a{margin-left:2rem; color: var(--text-light); position: relative;}
+nav a.active{color: var(--accent);}
+nav a::after{content:''; position:absolute; width:0; height:2px; background: var(--accent); bottom:-5px; left:0; transition:0.3s;}
+nav a:hover::after{width:100%;}
+.main{margin:6rem 3rem 3rem 3rem;}
+.profile-card, .nft-card{background: var(--card-bg); padding:2rem; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.3); margin-bottom:2rem;}
+.profile-card h2{color: var(--accent);}
+.profile-card p{color: var(--text-medium);}
+.nft-container{display:grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap:1.5rem;}
+.nft-card h3{color: var(--accent);}
+.nft-card p{color: var(--text-medium);}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>AidVault</h1>
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="profile.html" class="active">Profile</a>
+        <a href="manage_users.html">Manage Users</a>
+        <a href="approve_grants.html">Approve Grants</a>
+    </nav>
+</header>
+
+<div class="main">
+    <div class="profile-card">
+        <h2>Admin John</h2>
+        <p>Email: admin@example.com</p>
+        <p>Role: Administrator</p>
+    </div>
+
+    <h2>NFT Certificates of Impact</h2>
+    <div class="nft-container">
+        <div class="nft-card">
+            <h3>NFT #A001</h3>
+            <p>Issued for approving 5 grants</p>
+        </div>
+        <div class="nft-card">
+            <h3>NFT #A002</h3>
+            <p>Issued for approving 3 grants</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

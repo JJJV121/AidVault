@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AidVault - NFT Certificates</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root{
+    --bg-main: #1B0D3A;
+    --card-bg: rgba(255,255,255,0.05);
+    --primary: #8A00C4;
+    --accent: #9F6BFF;
+    --text-light: #FFFFFF;
+    --text-medium: #CFCFCF;
+}
+
+/* Global */
+*{margin:0; padding:0; box-sizing:border-box; font-family:'Roboto', sans-serif;}
+body{background: var(--bg-main); color: var(--text-light); scroll-behavior: smooth;}
+a{text-decoration:none; color:inherit;}
+h1,h2,h3{font-weight:700;}
+p{line-height:1.5; color: var(--text-medium);}
+
+/* Header */
+header{
+    width:100%; padding:1rem 3rem;
+    display:flex; justify-content: space-between; align-items: center;
+    background: rgba(27,13,58,0.9);
+    position: fixed; top:0; z-index:1000;
+}
+header h1{font-size:2rem; color: var(--text-light);}
+nav a{
+    margin-left:2rem; font-weight:500; color: var(--text-light);
+    position: relative; transition:0.3s;
+}
+nav a::after{
+    content:''; position:absolute; width:0; height:2px; background: var(--accent); bottom:-5px; left:0; transition:0.3s;
+}
+nav a:hover::after{width:100%;}
+nav a:hover{color: var(--accent);}
+nav a.active { color: var(--accent); }
+nav a.active::after { width:100%; }
+
+/* Main Content */
+.main{margin:6rem 3rem 3rem 3rem;}
+.main h2{font-size:2rem; margin-bottom:1rem; color: var(--accent); text-align:center;}
+.main p{margin-bottom:2rem; text-align:center; color: var(--text-medium);}
+
+/* NFT Certificates Grid */
+.nft-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap:2rem;
+    justify-items:center;
+}
+.nft-card{
+    background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(159,107,255,0.1));
+    border-radius: 25px;
+    padding:1.5rem;
+    text-align:center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 10px rgba(159,107,255,0.3) inset;
+    transition: transform 0.3s, box-shadow 0.3s;
+    backdrop-filter: blur(12px);
+    width: 260px;
+    border:2px solid var(--accent);
+    position: relative;
+    overflow: hidden;
+}
+.nft-card:hover{
+    transform: translateY(-10px) rotate(-1deg);
+    box-shadow: 0 25px 50px var(--accent), 0 0 40px rgba(159,107,255,0.5) inset;
+}
+.nft-card::before{
+    content:"🎉"; position:absolute; top:-10px; right:-10px; font-size:3rem;
+    transform: rotate(20deg); opacity:0.2;
+}
+.nft-card img{
+    width:100%; border-radius:15px;
+    margin-bottom:1rem;
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 15px rgba(159,107,255,0.5);
+}
+.nft-card h3{color: var(--accent); margin-bottom:0.5rem; font-size:1.2rem; text-transform:uppercase;}
+.nft-card p{color: var(--text-light); font-size:0.95rem; margin-bottom:0.3rem;}
+.nft-card span{color: var(--text-medium); font-size:0.8rem; display:block;}
+
+/* Footer Styles */
+footer {
+    background: rgba(27,13,58,0.95);
+    color: var(--text-medium, #CFCFCF);
+    padding: 2rem 1rem; text-align: center; border-top: 1px solid rgba(159,107,255,0.3);
+    margin-top: 3rem; font-family: 'Roboto', sans-serif;
+}
+.footer-container {max-width: 1200px; margin: 0 auto;}
+.footer-links {margin-bottom: 1rem;}
+.footer-links a {margin: 0 1rem; color: var(--text-medium, #CFCFCF); font-weight: 500; transition: 0.3s;}
+.footer-links a:hover {color: var(--accent); text-decoration: underline;}
+footer p {margin: 0.3rem 0;}
+footer .tagline {font-size: 0.9rem; color: var(--accent);}
+
+/* Responsive */
+@media(max-width:768px){
+    header{flex-direction:column; gap:1rem; padding:1rem 2rem;}
+    nav a{margin-left:1rem;}
+    .main{margin:6rem 1rem 3rem 1rem;}
+    .nft-grid{grid-template-columns:1fr;}
+    .footer-links{display:flex; flex-direction:column; gap:0.5rem;}
+    .footer-links a{margin:0;}
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>AidVault</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="admin/dashboard.html">Dashboard</a>
+        <a href="beneficiary/requests.html">Requests</a>
+        <a href="nft_certificates.html" class="active">NFT Certificates</a>
+    </nav>
+</header>
+
+<div class="main">
+    <h2>Your NFT Certificates</h2>
+    <p>🎊 These NFT certificates represent your donations! Collect, trade, and use them for future transactions. 🎊</p>
+
+    <div class="nft-grid">
+        <!-- NFT Card 1 -->
+        <div class="nft-card">
+            <img src="https://via.placeholder.com/250x250.png?text=NFT+1" alt="NFT Certificate">
+            <h3>Certificate #001</h3>
+            <p>Donated: $500</p>
+            <span>Date: 2025-09-25</span>
+        </div>
+
+        <!-- NFT Card 2 -->
+        <div class="nft-card">
+            <img src="https://via.placeholder.com/250x250.png?text=NFT+2" alt="NFT Certificate">
+            <h3>Certificate #002</h3>
+            <p>Donated: $1,000</p>
+            <span>Date: 2025-09-26</span>
+        </div>
+
+        <!-- NFT Card 3 -->
+        <div class="nft-card">
+            <img src="https://via.placeholder.com/250x250.png?text=NFT+3" alt="NFT Certificate">
+            <h3>Certificate #003</h3>
+            <p>Donated: $750</p>
+            <span>Date: 2025-09-27</span>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="admin/dashboard.html">Dashboard</a>
+            <a href="beneficiary/requests.html">Requests</a>
+            <a href="nft_certificates.html" class="active">NFT Certificates</a>
+        </div>
+        <p>&copy; 2025 AidVault. All Rights Reserved.</p>
+        <p class="tagline">Secure & Transparent Financial Aid Powered by Blockchain</p>
+    </div>
+</footer>
+
+</body>
+</html>
