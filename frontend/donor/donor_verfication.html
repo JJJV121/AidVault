@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AidVault - Donor Verification</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+    --bg-main: #1B0D3A;
+    --card-bg: rgba(255,255,255,0.05);
+    --primary: #8A00C4;
+    --accent: #9F6BFF;
+    --text-light: #FFFFFF;
+    --text-medium: #CFCFCF;
+}
+*{margin:0; padding:0; box-sizing:border-box; font-family:'Roboto', sans-serif;}
+body{background: var(--bg-main); color: var(--text-light);}
+
+/* Header/Nav */
+header{
+    width:100%; padding:1rem 3rem;
+    display:flex; justify-content: space-between; align-items: center;
+    background: rgba(27,13,58,0.9);
+    position: fixed; top:0; z-index:1000; backdrop-filter: blur(5px);
+}
+header h1{font-size:2rem; color: var(--text-light);}
+nav a{
+    margin-left:2rem; font-weight:500; color: var(--text-light);
+    position: relative; transition:0.3s;
+}
+nav a::after{
+    content:''; position:absolute; width:0; height:2px; background: var(--accent); bottom:-5px; left:0; transition:0.3s;
+}
+nav a:hover::after{width:100%;}
+nav a:hover{color: var(--accent);}
+
+/* Container */
+.verification-container{
+    max-width:600px; margin:8rem auto; padding:3rem;
+    background: var(--card-bg); border-radius:20px; 
+    box-shadow:0 0 30px rgba(159,107,255,0.3);
+    backdrop-filter: blur(8px); text-align:center;
+}
+.verification-container h2{color:var(--accent); margin-bottom:1rem;}
+.verification-container p{color:var(--text-medium); margin-bottom:2rem;}
+
+/* Form */
+form label{display:block; text-align:left; margin-top:1rem; color:var(--text-light);}
+form input{
+    width:100%; padding:0.8rem; margin-top:0.5rem; border-radius:10px;
+    border:none; outline:none; background:rgba(255,255,255,0.1); color:white;
+}
+form input[type="file"]{background:none; border:1px dashed var(--accent); padding:1rem; cursor:pointer;}
+form button{
+    margin-top:2rem; padding:1rem; width:100%; border:none; border-radius:50px;
+    background: linear-gradient(45deg, #8A00C4, #9F6BFF); 
+    color: var(--text-light); font-weight:600; cursor:pointer;
+    box-shadow:0 0 20px var(--accent);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+form button:hover{transform:translateY(-3px); box-shadow:0 0 30px var(--accent);}
+
+/* Result */
+#result{
+    margin-top:1.5rem; font-size:1.1rem; font-weight:600;
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header>
+    <h1>AidVault</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="index.html#features">Features</a>
+        <a href="index.html#stats">Stats</a>
+        <a href="index.html#cta">Get Started</a>
+        <a href="admin/dashboard.html">Admin</a>
+        <a href="donor/dashboard.html">Donor</a>
+        <a href="beneficiary/dashboard.html">Beneficiary</a>
+        <a href="nft_certificates.html">My NFT</a>
+        <a href="login.html">Login</a>
+    </nav>
+</header>
+
+<!-- VERIFICATION FORM -->
+<div class="verification-container">
+    <h2>🛡 Donor Verification</h2>
+    <p>Upload your documents for AI-powered legitimacy check.</p>
+    
+    <form id="donorForm">
+        <label>Full Name</label>
+        <input type="text" id="name" required>
+
+        <label>Government ID (Aadhaar / PAN / Passport)</label>
+        <input type="file" id="govId" accept=".jpg,.png,.pdf" required>
+
+        <label>Source of Funds (Bank Statement / Salary Slip)</label>
+        <input type="file" id="fundsDoc" accept=".jpg,.png,.pdf" required>
+
+        <label>Donation Amount (INR)</label>
+        <input type="number" id="amount" required>
+
+        <button type="submit">Verify with AI</button>
+    </form>
+
+    <div id="result"></div>
+</div>
+
+<script>
+document.getElementById("donorForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    let amount = document.getElementById("amount").value;
+    let result = document.getElementById("result");
+
+    // 🔮 Simulated AI Risk Scoring
+    let riskScore = Math.random();
+    if(amount > 500000 || riskScore > 0.7){
+        result.innerHTML = "⚠️ Suspicious Activity Detected. Needs Admin Review.";
+        result.style.color = "orange";
+    } else {
+        result.innerHTML = "✅ Donor Verified Successfully. Funds are Clean.";
+        result.style.color = "lightgreen";
+    }
+});
+</script>
+
+</body>
+</html>
