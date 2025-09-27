@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AidVault - Beneficiary Dashboard</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root{
+    --bg-main: #1B0D3A;
+    --card-bg: rgba(255,255,255,0.05);
+    --primary: #8A00C4;
+    --accent: #9F6BFF;
+    --text-light: #FFFFFF;
+    --text-medium: #CFCFCF;
+}
+
+/* Global */
+*{margin:0; padding:0; box-sizing:border-box; font-family:'Roboto', sans-serif;}
+body{background: var(--bg-main); color: var(--text-light); scroll-behavior: smooth;}
+a{text-decoration:none; color:inherit;}
+h1,h2,h3{color: var(--primary); font-weight:700;}
+p{line-height:1.5; color: var(--text-medium);}
+
+/* Header */
+header{
+    width:100%; padding:1rem 3rem;
+    display:flex; justify-content: space-between; align-items: center;
+    background: rgba(27,13,58,0.9);
+    position: fixed; top:0; z-index:1000;
+}
+header h1{font-size:2rem; color: var(--text-light);}
+nav a{
+    margin-left:2rem; font-weight:500; color: var(--text-light);
+    position: relative; transition:0.3s;
+}
+nav a::after{
+    content:''; position:absolute; width:0; height:2px; background: var(--accent); bottom:-5px; left:0; transition:0.3s;
+}
+nav a:hover::after{width:100%;}
+nav a:hover{color: var(--accent);}
+
+/* Main Content */
+.main{
+    margin:6rem 3rem 3rem 3rem;
+}
+
+/* Welcome Section */
+.welcome{
+    text-align:center; margin-bottom:3rem;
+}
+.welcome h2{font-size:2rem; color: var(--accent); margin-bottom:0.5rem;}
+.welcome p{color: var(--text-medium); font-size:1.1rem;}
+
+/* Stats Cards */
+.cards{
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap:2rem; margin-bottom:3rem;
+}
+.card{
+    background: var(--card-bg);
+    border-radius:20px;
+    padding:2rem;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+    backdrop-filter: blur(10px);
+    border:1px solid rgba(255,255,255,0.1);
+}
+.card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px var(--accent), 0 0 30px rgba(159,107,255,0.4);
+}
+.card h3{
+    font-size:1.5rem; margin-bottom:1rem; color: var(--accent);
+}
+.card p{
+    font-size:1rem; color: var(--text-light); line-height:1.5;
+}
+
+/* Recent Grants Table */
+table{
+    width:100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+thead{
+    background: rgba(159,107,255,0.3);
+}
+thead th{
+    padding:1rem; text-align:left; font-weight:600; color: var(--text-light);
+}
+tbody td{
+    padding:1rem; border-bottom:1px solid rgba(255,255,255,0.1); color: var(--text-light);
+}
+tbody tr:hover{
+    background: rgba(159,107,255,0.1);
+}
+
+/* Footer Styles */
+footer {
+    background: rgba(27,13,58,0.95);
+    color: var(--text-medium, #CFCFCF);
+    padding: 2rem 1rem;
+    text-align: center;
+    border-top: 1px solid rgba(159,107,255,0.3);
+    margin-top: 3rem;
+    font-family: 'Roboto', sans-serif;
+}
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.footer-links {
+    margin-bottom: 1rem;
+}
+.footer-links a {
+    margin: 0 1rem;
+    color: var(--text-medium, #CFCFCF);
+    font-weight: 500;
+    transition: 0.3s;
+}
+.footer-links a:hover {
+    color: var(--accent, #9F6BFF);
+    text-decoration: underline;
+}
+footer p {
+    margin: 0.3rem 0;
+}
+footer .tagline {
+    font-size: 0.9rem;
+    color: var(--accent, #9F6BFF);
+}
+
+/* Responsive */
+@media(max-width:768px){
+    header{flex-direction:column; gap:1rem; padding:1rem 2rem;}
+    nav a{margin-left:1rem;}
+    .main{margin:6rem 1rem 3rem 1rem;}
+    .cards{grid-template-columns:1fr;}
+    table thead{display:none;}
+    table, tbody, tr, td{display:block; width:100%;}
+    tr{margin-bottom:1rem;}
+    td{text-align:right; padding-left:50%; position:relative;}
+    td::before{
+        content: attr(data-label);
+        position:absolute;
+        left:1rem;
+        width:45%;
+        text-align:left;
+        font-weight:600;
+        color: var(--accent);
+    }
+    .footer-links{
+        display:flex; flex-direction:column; gap:0.5rem;
+    }
+    .footer-links a{margin:0;}
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>AidVault</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="beneficiary_dashboard.html">Dashboard</a>
+        <a href="requests.html">Requests</a>
+        <a href="profile.html">Profile</a>
+    </nav>
+</header>
+
+<div class="main">
+
+    <div class="welcome">
+        <h2>Welcome, Alice!</h2>
+        <p>Here’s your financial aid overview and recent grants activity.</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="cards">
+        <div class="card">
+            <h3>Total Grants Received</h3>
+            <p>$3,500</p>
+        </div>
+        <div class="card">
+            <h3>Pending Requests</h3>
+            <p>2</p>
+        </div>
+        <div class="card">
+            <h3>Total Donations</h3>
+            <p>5</p>
+        </div>
+        <div class="card">
+            <h3>Last Received</h3>
+            <p>$1,200</p>
+        </div>
+    </div>
+
+    <!-- Recent Grants Table -->
+    <h3 style="margin-bottom:1rem; color:var(--accent);">Recent Grants</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Grant ID</th>
+                <th>Amount</th>
+                <th>Date Received</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td data-label="Grant ID">GRT-001</td>
+                <td data-label="Amount">$500</td>
+                <td data-label="Date Received">2025-09-10</td>
+                <td data-label="Status">Received</td>
+            </tr>
+            <tr>
+                <td data-label="Grant ID">GRT-004</td>
+                <td data-label="Amount">$1,200</td>
+                <td data-label="Date Received">2025-09-20</td>
+                <td data-label="Status">Received</td>
+            </tr>
+            <tr>
+                <td data-label="Grant ID">GRT-007</td>
+                <td data-label="Amount">$800</td>
+                <td data-label="Date Received">2025-09-25</td>
+                <td data-label="Status">Pending</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="beneficiary_dashboard.html">Dashboard</a>
+            <a href="requests.html">Requests</a>
+            <a href="profile.html">Profile</a>
+            <a href="manage_users.html">Manage Users</a>
+            <a href="approve_grants.html">Approve Grants</a>
+        </div>
+        <p>&copy; 2025 AidVault. All Rights Reserved.</p>
+        <p class="tagline">Secure & Transparent Financial Aid Powered by Blockchain</p>
+    </div>
+</footer>
+
+</body>
+</html>

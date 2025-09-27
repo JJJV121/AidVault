@@ -1,0 +1,70 @@
+<!-- footer.html -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="beneficiary_dashboard.html">Dashboard</a>
+            <a href="requests.html">Requests</a>
+            <a href="profile.html">Profile</a>
+            <a href="manage_users.html">Manage Users</a>
+            <a href="approve_grants.html">Approve Grants</a>
+        </div>
+        <p>&copy; 2025 AidVault. All Rights Reserved.</p>
+        <p class="tagline">Secure & Transparent Financial Aid Powered by Blockchain</p>
+    </div>
+</footer>
+
+<style>
+/* Footer Styles */
+footer {
+    background: rgba(27,13,58,0.95);
+    color: var(--text-medium, #CFCFCF);
+    padding: 2rem 1rem;
+    text-align: center;
+    border-top: 1px solid rgba(159,107,255,0.3);
+    margin-top: 3rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-links {
+    margin-bottom: 1rem;
+}
+
+.footer-links a {
+    margin: 0 1rem;
+    color: var(--text-medium, #CFCFCF);
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--accent, #9F6BFF);
+    text-decoration: underline;
+}
+
+footer p {
+    margin: 0.3rem 0;
+}
+
+footer .tagline {
+    font-size: 0.9rem;
+    color: var(--accent, #9F6BFF);
+}
+
+/* Responsive Footer */
+@media(max-width:768px){
+    .footer-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .footer-links a {
+        margin: 0;
+    }
+}
+</style>

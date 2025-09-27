@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AidVault - Navbar</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root{
+    --bg-main: #1B0D3A;
+    --primary: #8A00C4;
+    --accent: #9F6BFF;
+    --text-light: #FFFFFF;
+    --text-medium: #CFCFCF;
+}
+
+/* Navbar */
+nav{
+    display:flex; justify-content:flex-end; align-items:center;
+    background: rgba(27,13,58,0.95);
+    padding: 1rem 3rem;
+    position: fixed; top:0; width:100%; z-index:1000;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+nav a{
+    margin-left:2rem; font-weight:500; color: var(--text-light);
+    position: relative; transition:0.3s;
+}
+nav a::after{
+    content:''; position:absolute; width:0; height:2px; background: var(--accent); bottom:-5px; left:0; transition:0.3s;
+}
+nav a:hover::after{width:100%;}
+nav a:hover{color: var(--accent);}
+
+/* Hamburger Menu */
+.hamburger {
+    display:none;
+    flex-direction: column;
+    cursor: pointer;
+    margin-left:auto;
+}
+.hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-light);
+    margin: 4px 0;
+    transition: 0.4s;
+}
+
+/* Responsive */
+@media(max-width:768px){
+    nav{
+        flex-direction: column;
+        display:none;
+        width:100%;
+        top:60px;
+        left:0;
+        background: rgba(27,13,58,0.95);
+    }
+    nav.active{
+        display:flex;
+    }
+    .hamburger{
+        display:flex;
+    }
+    nav a{
+        margin:1rem 0;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="hamburger" onclick="toggleMenu(this)">
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+
+<nav id="navMenu">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="manage_users.html">Manage Users</a>
+    <a href="approve_grants.html">Approve Grants</a>
+    <a href="requests.html">Requests</a>
+    <a href="beneficiary_dashboard.html">Beneficiary</a>
+</nav>
+
+<script>
+function toggleMenu(x){
+    x.classList.toggle("change");
+    document.getElementById("navMenu").classList.toggle("active");
+}
+</script>
+
+</body>
+</html>
