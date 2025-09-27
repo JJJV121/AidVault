@@ -40,6 +40,14 @@ nav a::after{
 nav a:hover::after{width:100%;}
 nav a:hover{color: var(--accent);}
 
+/* Active link style */
+nav a.active {
+    color: var(--accent);
+}
+nav a.active::after {
+    width: 100%;
+}
+
 /* Hamburger */
 .hamburger {
     display:none;
@@ -119,12 +127,11 @@ footer .tagline {font-size: 0.9rem; color: var(--accent, #9F6BFF);}
         <div></div>
     </div>
     <nav id="navMenu">
-        <a href="index.html">Home</a>
+        <a href="../index.html">Home</a>
         <a href="dashboard.html">Dashboard</a>
-        <a href="manage_users.html">Manage Users</a>
-        <a href="approve_grants.html">Approve Grants</a>
-        <a href="requests.html">Requests</a>
-        <a href="beneficiary_dashboard.html">Beneficiary</a>
+        <a href="../admin/manage_users.html">Manage Users</a>
+        <a href="../admin/approve_grants.html">Approve Grants</a> <!-- ✅ corrected -->
+        <a href="../beneficiary/requests.html">Requests</a> <!-- ✅ corrected -->
     </nav>
 </header>
 
@@ -177,12 +184,11 @@ footer .tagline {font-size: 0.9rem; color: var(--accent, #9F6BFF);}
 <footer>
     <div class="footer-container">
         <div class="footer-links">
-            <a href="index.html">Home</a>
+            <a href="../index.html">Home</a>
             <a href="dashboard.html">Dashboard</a>
-            <a href="manage_users.html">Manage Users</a>
-            <a href="approve_grants.html">Approve Grants</a>
-            <a href="beneficiary_dashboard.html">Beneficiary</a>
-            <a href="requests.html">Requests</a>
+            <a href="../admin/manage_users.html">Manage Users</a>
+            <a href="../admin/approve_grants.html">Approve Grants</a>
+            <a href="../beneficiary/requests.html">Requests</a>
         </div>
         <p>&copy; 2025 AidVault. All Rights Reserved.</p>
         <p class="tagline">Secure & Transparent Financial Aid Powered by Blockchain</p>
@@ -194,6 +200,15 @@ function toggleMenu(x){
     x.classList.toggle("change");
     document.getElementById("navMenu").classList.toggle("active");
 }
+
+// ✅ Highlight active page in navbar/footer
+const currentPage = window.location.pathname.split("/").pop();
+document.querySelectorAll("nav a, .footer-links a").forEach(link => {
+    const linkPage = link.getAttribute("href").split("/").pop();
+    if(linkPage === currentPage){
+        link.classList.add("active");
+    }
+});
 </script>
 
 </body>

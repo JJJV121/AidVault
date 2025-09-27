@@ -41,6 +41,15 @@ nav a::after{
 nav a:hover::after{width:100%;}
 nav a:hover{color: var(--accent);}
 
+/* Active link */
+nav a.active {
+    color: var(--accent);
+    font-weight: 700;
+}
+nav a.active::after {
+    width: 100%;
+}
+
 /* Main Content */
 .main{margin:6rem 3rem 3rem 3rem;}
 .main h2{font-size:2rem; margin-bottom:2rem; color: var(--accent); text-align:center;}
@@ -89,7 +98,7 @@ footer .tagline {font-size: 0.9rem; color: var(--accent, #9F6BFF);}
 <header>
     <h1>AidVault</h1>
     <nav>
-        <a href="index.html">Home</a>
+        <a href="../index.html">Home</a>
         <a href="dashboard.html">Dashboard</a>
         <a href="manage_users.html">Manage Users</a>
         <a href="approve_grants.html">Approve Grants</a>
@@ -139,7 +148,7 @@ footer .tagline {font-size: 0.9rem; color: var(--accent, #9F6BFF);}
 <footer>
     <div class="footer-container">
         <div class="footer-links">
-            <a href="index.html">Home</a>
+            <a href="../index.html">Home</a>
             <a href="dashboard.html">Dashboard</a>
             <a href="manage_users.html">Manage Users</a>
             <a href="approve_grants.html">Approve Grants</a>
@@ -150,6 +159,16 @@ footer .tagline {font-size: 0.9rem; color: var(--accent, #9F6BFF);}
         <p class="tagline">Secure & Transparent Financial Aid Powered by Blockchain</p>
     </div>
 </footer>
+
+<!-- Highlight Active Nav Link -->
+<script>
+    const currentPage = window.location.pathname.split("/").pop();
+    document.querySelectorAll("nav a").forEach(link => {
+        if(link.getAttribute("href") === currentPage){
+            link.classList.add("active");
+        }
+    });
+</script>
 
 </body>
 </html>
