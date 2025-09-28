@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AidVault - Analytics Dashboard</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root{
+    --bg-main: #1B0D3A;
+    --card-bg: rgba(255,255,255,0.05);
+    --primary: #8A00C4;
+    --accent: #9F6BFF;
+    --text-light: #FFFFFF;
+    --text-medium: #CFCFCF;
+}
+
+/* Global */
+*{margin:0; padding:0; box-sizing:border-box; font-family:'Roboto', sans-serif;}
+body{background: var(--bg-main); color: var(--text-light); scroll-behavior: smooth;}
+a{text-decoration:none; color:inherit;}
+header{width:100%; padding:1rem 3rem; display:flex; justify-content: space-between; align-items: center; background: rgba(27,13,58,0.95); position: fixed; top:0; z-index:1000; box-shadow: 0 5px 20px rgba(0,0,0,0.5); height: 60px;}
+header h1{font-size:2rem; color: var(--text-light);}
+nav a{margin-left:2rem; font-weight:500; color: var(--text-light); position: relative; transition:0.3s;}
+nav a::after{content:''; position:absolute; width:0; height:2px; background: var(--accent); bottom:-5px; left:0; transition:0.3s;}
+nav a:hover::after{width:100%;}
+nav a:hover{color: var(--accent);}
+.hamburger {display:none; flex-direction: column; cursor: pointer;}
+.hamburger div {width: 25px; height: 3px; background-color: var(--text-light); margin: 4px 0; transition: 0.4s;}
+.center-container{display: flex; justify-content: center; align-items: flex-start; min-height: calc(100vh - 60px); padding-top: 60px;}
+.main{width: 100%; max-width: 1000px; padding:2rem; background: var(--card-bg); border-radius:20px; backdrop-filter: blur(10px); box-shadow:0 10px 30px rgba(0,0,0,0.3);}
+.main h2{font-size:2rem; margin-bottom:2rem; color: var(--accent); text-align:center;}
+table{width:100%; border-collapse: collapse;}
+th, td{padding:0.8rem; text-align:left; border-bottom: 1px solid rgba(255,255,255,0.1);}
+th{color: var(--accent);}
+tr.suspect{background: rgba(255, 76, 76, 0.2);}
+canvas{margin-top:2rem;}
+
+/* Footer */
+footer {background: rgba(27,13,58,0.95); color: var(--text-medium, #CFCFCF); padding: 2rem 1rem; text-align: center; border-top: 1px solid rgba(159,107,255,0.3);}
+.footer-links {margin-bottom: 1rem;}
+.footer-links a {margin: 0 1rem; color: var(--text-medium); font-weight: 500; transition: 0.3s;}
+.footer-links a:hover {color: var(--accent); text-decoration: underline;}
+footer p {margin: 0.3rem 0;}
+footer .tagline {font-size: 0.9rem; color: var(--accent);}
+@media(max-width:768px){header{flex-direction:column; gap:1rem; padding:1rem 2rem;} nav a{margin-left:1rem;} .main{margin:0 1rem; max-width:95%;}}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>AidVault</h1>
+    <div class="hamburger" onclick="toggleMenu(this)">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <nav id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="manage_users.html">Manage Users</a>
+        <a href="approve_grants.html">Approve Grants</a>
+        <a href="requests.html">Requests</a>
+    </nav>
+</header>
+
+<div class="center-container">
+    <div class="main">
+        <h2>Donation Analytics & Suspect Donors</h2>
+        <table id="donorTable">
+            <thead>
+                <tr>
+                    <th>Donor Name</th>
+                    <th>Total Donations ($)</th>
+                    <th># Donations</th>
+                    <th>Avg Donation ($)</th>
+                    <th>Last Donation</th>
+                    <th>Anomaly Score</th>
+                    <th>Suspect</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be populated by JS -->
+            </tbody>
+        </table>
+        <canvas id="donationChart" width="400" height="150"></canvas>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="analytics.html">Analytics</a>
+            <a href="manage_users.html">Manage Users</a>
+            <a href="approve_grants.html">Approve Grants</a>
+            <a href="requests.html">Requests</a>
+        </div>
+        <p>&copy; 2025 AidVault. All Rights Reserved.</p>
+        <p class="tagline">Secure & Transparent Financial Aid Powered by Blockchain</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+function toggleMenu(x){
+    x.classList.toggle("change");
+    document.getElementById("navMenu").classList.toggle("active");
+}
+
+// Sample donation data (replace with API/DB fetch)
+const donors = [
+    {name: "Alice Smith", total: 500, num: 5, avg: 100, last: "2025-09-25", score: 0.2, suspect: false},
+    {name: "Bob Johnson", total: 1200, num: 6, avg: 200, last: "2025-09-27", score: -0.5, suspect: true},
+    {name: "Charlie Lee", total: 300, num: 3, avg: 100, last: "2025-09-24", score: 0.1, suspect: false}
+];
+
+const tbody = document.querySelector("#donorTable tbody");
+donors.forEach(d => {
+    const tr = document.createElement("tr");
+    if(d.suspect) tr.classList.add("suspect");
+    tr.innerHTML = `
+        <td>${d.name}</td>
+        <td>${d.total}</td>
+        <td>${d.num}</td>
+        <td>${d.avg}</td>
+        <td>${d.last}</td>
+        <td>${d.score.toFixed(2)}</td>
+        <td>${d.suspect ? "Yes" : "No"}</td>
+    `;
+    tbody.appendChild(tr);
+});
+
+// Donation trend chart
+const ctx = document.getElementById('donationChart').getContext('2d');
+const chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: donors.map(d=>d.name),
+        datasets: [{
+            label: 'Total Donations ($)',
+            data: donors.map(d=>d.total),
+            backgroundColor: donors.map(d=>d.suspect ? 'rgba(255,76,76,0.6)' : 'rgba(159,107,255,0.6)'),
+            borderColor: donors.map(d=>d.suspect ? 'rgba(255,76,76,1)' : 'rgba(159,107,255,1)'),
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive:true,
+        plugins:{legend:{display:false}},
+        scales:{y:{beginAtZero:true}}
+    }
+});
+</script>
+
+</body>
+</html>

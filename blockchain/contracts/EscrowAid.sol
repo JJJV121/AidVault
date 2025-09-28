@@ -36,3 +36,4 @@ contract EscrowAid is Ownable {
         emit FundsReleased(escrowId, e.beneficiary, e.amount);
     }
 }
+
