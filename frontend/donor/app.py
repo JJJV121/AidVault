@@ -19,7 +19,8 @@ def verify_donor():
     """
     data = request.json
     df = pd.DataFrame([data])
-    
+
+    # Make prediction
     prediction = model.predict(df)[0]  # 0 = verified, 1 = suspicious
     probability = model.predict_proba(df)[0][prediction]
 

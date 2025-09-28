@@ -1,33 +1,42 @@
-from flask import Flask, request, jsonify
 import pandas as pd
 import joblib
-
-app = Flask(__name__)
 
 # Load trained model
 model = joblib.load("donation_anomaly_model.pkl")
 
-@app.route("/check_donation", methods=["POST"])
-def check_donation():
+def check_donation(donation_amount, num_donations, avg_past_donation, time_between_donations):
     """
-    JSON input:
-    {
-        "donation_amount": 500,
-        "num_donations": 3,
-        "avg_past_donation": 100,
-        "time_between_donations": 2
+    Function to check donation anomaly.
+    
+    Parameters:
+        donation_amount (float): Current donation amount
+        num_donations (int): Number of donations made
+        avg_past_donation (float): Average past donation amount
+        time_between_donations (float): Time (days) since last donation
+    
+    Returns:
+        dict: {
+            "is_anomaly": True/False,
+            "anomaly_score": float
+        }
+    """
+    data = {
+        "donation_amount": [donation_amount],
+        "num_donations": [num_donations],
+        "avg_past_donation": [avg_past_donation],
+        "time_between_donations": [time_between_donations]
     }
-    """
-    data = request.json
-    df = pd.DataFrame([data])
+
+    df = pd.DataFrame(data)
     anomaly = model.predict(df)[0]  # -1 = anomaly, 1 = normal
     score = float(model.decision_function(df)[0])
 
-    result = {
+    return {
         "is_anomaly": anomaly == -1,
         "anomaly_score": score
     }
-    return jsonify(result)
 
+# Example usage
 if __name__ == "__main__":
-    app.run(debug=True)
+    test = check_donation(500, 3, 100, 2)
+    print(test)
